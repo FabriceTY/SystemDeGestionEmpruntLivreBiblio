@@ -9,8 +9,9 @@ import helmet from 'helmet'
 
 //Voir le contenu de .env
 import dotenv from 'dotenv'
-import { auteurList } from './controllers/auteur.js'
-//import { livreList } from './controllers/livre.js'
+import { auteurList, getAuteurById, addAuteur, deleteAuteurById} from './controllers/auteur.js'
+import { rayonList, getRayonById, addRayon, deleteRayonById} from './controllers/rayon.js'
+import { livreList } from './controllers/livre.js'
 
 const env = dotenv.config().parsed
 
@@ -38,11 +39,38 @@ const callbackfn = (req, res) => {  //Un controleur
 }
 
 app.get('/salutation/:name', callbackfn)
+/**
+ * Partie reservee au traitement des routes sur la table Auteur
+ */
 
 //Liste des auteurs
-app.get('/auteur_list', auteurList)
+app.get('/auteurList', auteurList)
 
-//app.get('/departments', departementList)
+// retrouver un auteur selon son id
+app.get('/auteurList/:id', getAuteurById)
+
+// ajouter un auteur 
+app.post('/addAuteur',addAuteur)
+// Supprimer un auteur suivant son id
+app.delete('/deleteAuteur/:id',deleteAuteurById)
+
+/**
+ * Partie reservee au traitement des routes sur la table Rayon
+ */
+
+//Liste des rayons
+app.get('/rayonList', rayonList)
+
+// retrouver un rayon selon son id
+app.get('/rayonList/:id', getRayonById)
+
+// ajouter un rayon 
+app.post('/addRayon',addRayon)
+// Supprimer un rayon suivant son id
+app.delete('/deleteRayon/:id',deleteRayonById)
+
+// liste des livres
+app.get('/liste_livre', livreList)
 
 const port = 5000
 

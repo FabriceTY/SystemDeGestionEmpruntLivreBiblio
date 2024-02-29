@@ -4,10 +4,9 @@ import { DataTypes } from "sequelize";
 
 //Creation de la table Livre
 
-const Livre = database.define('livre', {
-    idLivre: { type: DataTypes.INTEGER, allowNull: false }, //NOT NULL
-    nomLivre: DataTypes.STRING
-    
+const Livre = database.define('livre', {    
+    nomLivre: DataTypes.STRING,
+    nombrePageLivre: DataTypes.INTEGER    
     
 })
 

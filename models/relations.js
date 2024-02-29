@@ -2,6 +2,7 @@
 import { Sequelize } from "sequelize";
 import Auteur from "./Auteur.js";
 import Livre from "./Livre.js";
+import Rayon from "./Rayon.js";
 
 //Creation des relations
 
@@ -10,12 +11,9 @@ Livre.belongsTo(Auteur)
 //Un auteur peut ecrire plusieur livre
 Auteur.hasMany(Livre)
 
-// Synchroniser les modèles avec la base de données pour créer les tables
-/*Sequelize.sync({ force: true }) // Utilisez { force: true } pour supprimer et recréer les tables à chaque fois
-  .then(() => {
-    console.log('Tables créées avec succès');
-  })
-  .catch(err => {
-    console.error('Erreur lors de la synchronisation des tables :', err);
-  });*/
-export {Auteur,Livre}
+//Un livre appartient à un rayon.
+Livre.belongsTo(Rayon) 
+//Un rayon possède plusieurs livres
+Rayon.hasMany(Livre)
+
+export {Auteur,Livre,Rayon}

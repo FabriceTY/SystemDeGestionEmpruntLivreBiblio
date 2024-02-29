@@ -4,8 +4,7 @@ import { DataTypes } from "sequelize";
 
 //Creation de la table Auteur
 
-const Auteur = database.define('auteur', {
-    idAuteur: { type: DataTypes.INTEGER, allowNull: false }, //NOT NULL
+const Auteur = database.define('auteur', {    
     nomAuteur: DataTypes.STRING,
     prenomAuteur: DataTypes.STRING,
     sexeAuteur: DataTypes.STRING
