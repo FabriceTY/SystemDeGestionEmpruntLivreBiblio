@@ -32,13 +32,6 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 
-//Une route pour tester
-const callbackfn = (req, res) => {  //Un controleur
-    const name = req.params.name
-    res.send(`Bonjour ${name}, tout va bien?`)
-}
-
-app.get('/salutation/:name', callbackfn)
 /**
  * Partie reservee au traitement des routes sur la table Auteur
  */
