@@ -9,7 +9,7 @@ import helmet from 'helmet'
 
 //Voir le contenu de .env
 import dotenv from 'dotenv'
-//import { auteurList } from './controllers/auteur.js'
+import { auteurList } from './controllers/auteur.js'
 //import { livreList } from './controllers/livre.js'
 
 const env = dotenv.config().parsed
@@ -39,8 +39,8 @@ const callbackfn = (req, res) => {  //Un controleur
 
 app.get('/salutation/:name', callbackfn)
 
-//Liste des livres
-//app.get('/liste-livre', livreList)
+//Liste des auteurs
+app.get('/auteur_list', auteurList)
 
 //app.get('/departments', departementList)
 
