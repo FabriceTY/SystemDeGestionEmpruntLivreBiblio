@@ -47,6 +47,36 @@ export const addAuteur = async (req, res) => {
     }
 };
 
+// Controleur pour mettre a jour un element dans la table Auteur
+export const updateAuteur = async (req, res) => {
+    // Extraire les donnees de la requete
+    const { id } = req.params; // L'identifiant de l'auteur à mettre à jour
+    const { nomAuteur, prenomAuteur, sexeAuteur } = req.body;
+
+    try {
+        // Rechercher l'auteur dans la base de donnees par son ID
+        const auteur = await Auteur.findByPk(id);
+
+        // Verifier si l'auteur existe
+        if (!auteur) {
+            return res.status(404).json({ message: 'Auteur non trouvé' });
+        }
+
+        // Mettre a jour les proprietes de l'auteur
+        await auteur.update({
+            nomAuteur: nomAuteur,
+            prenomAuteur: prenomAuteur,
+            sexeAuteur: sexeAuteur
+        });
+
+        // Renvoyer une reponse avec les details de l'auteur mis a jour
+        res.status(200).json({ data: auteur, message: 'Auteur mis à jour avec succès' });
+    } catch (error) {
+        // Gerer les erreurs
+        res.status(500).json({ message: error.message });
+    }
+};
+
 
 // fonction (Controlleur) pour supprimer un auteur selon son id
 export const deleteAuteurById = async (req, res) => {

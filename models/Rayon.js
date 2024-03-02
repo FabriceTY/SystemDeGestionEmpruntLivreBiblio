@@ -5,7 +5,7 @@ import { DataTypes } from "sequelize";
 //Creation de la table Rayon
 
 const Rayon = database.define('rayon', {    
-    nomRayon: DataTypes.STRING,
+    nomRayon: DataTypes.STRING, // bande-anime, fiction, policier
     descriptionRayon: DataTypes.TEXT    
     
 })

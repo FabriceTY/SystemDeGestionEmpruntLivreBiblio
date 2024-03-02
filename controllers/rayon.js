@@ -47,7 +47,35 @@ export const addRayon = async (req, res) => {
     }
 };
 
+// Controleur pour mettre a jour un element dans la table Rayon
+export const updateRayon = async (req, res) => {
+    // Extraire les donnees de la requete
+    const { id } = req.params; // L'identifiant du rayon a mettre a jour
+    const { nomRayon, descriptionRayon } = req.body;
 
+    try {
+        // Rechercher un rayon dans la base de donnees par son ID
+        const rayon = await Rayon.findByPk(id);
+
+        // Verifier si le rayon existe
+        if (!rayon) {
+            return res.status(404).json({ message: 'Rayon non trouvé' });
+        }
+
+        // Mettre a jour les proprietes du rayon
+        await rayon.update({
+            nomRayon: nomRayon,
+            descriptionRayon: descriptionRayon,
+            
+        });
+
+        // Renvoyer une reponse avec les details du rayon mis a jour
+        res.status(200).json({ data: rayon, message: 'Rayon mis à jour avec succes' });
+    } catch (error) {
+        // Gerer les erreurs
+        res.status(500).json({ message: error.message });
+    }
+};
 // fonction (Controlleur) pour supprimer un rayon selon son id
 export const deleteRayonById = async (req, res) => {
     // Extraire l'ID du rayon a supprimer a partir des parametres de la requete
