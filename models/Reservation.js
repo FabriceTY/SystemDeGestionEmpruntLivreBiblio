@@ -9,4 +9,4 @@ const Reservation = database.define('auteur', {
     
 })
 
-export default Reservation
+export default Reservation;

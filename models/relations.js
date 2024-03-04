@@ -5,6 +5,8 @@ import Livre from "./Livre.js";
 import Rayon from "./Rayon.js";
 import Utilisateur from "./Utilisateur.js";
 import Role from "./Role.js";
+import Emprunt from "./Emprunt.js";
+import { Reservation } from "./Reservation.js";
 
 //Creation des relations
 
@@ -28,4 +30,10 @@ Role.hasMany(Utilisateur);
 Livre.belongsToMany(Utilisateur, { through: 'Reservation' });
 Utilisateur.belongsToMany(Livre, { through: 'Reservation' });
 
-export {Auteur,Livre,Rayon, Role, Utilisateur}
+// Un utilisateur effectue plusieurs emprunts
+Utilisateur.hasMany(Emprunt);
+
+// Un emprunt est effectue par un utilisateur
+Emprunt.belongsTo(Utilisateur);
+
+export {Auteur,Livre,Rayon, Role, Utilisateur, Emprunt, Reservation}

@@ -9,9 +9,13 @@ import helmet from 'helmet'
 
 //Voir le contenu de .env
 import dotenv from 'dotenv'
-import { auteurList, getAuteurById, addAuteur, deleteAuteurById} from './controllers/auteur.js'
-import { rayonList, getRayonById, addRayon, deleteRayonById} from './controllers/rayon.js'
-import { livreList } from './controllers/livre.js'
+import { auteurList, getAuteurById, addAuteur, deleteAuteurById, updateAuteur} from './controllers/auteur.js'
+import { rayonList, getRayonById, addRayon, deleteRayonById, updateRayon} from './controllers/rayon.js'
+import { empruntList, getEmpruntById, addEmprunt, deleteEmpruntById, updateEmprunt} from './controllers/emprunt.js'
+import { livreList, getLivreById, addLivre, deleteLivreById, updateLivre } from './controllers/livre.js'
+import { utilisateurList, getUtilisateurById, addUtilisateur, deleteUtilisateurById, updateUtilisateur } from './controllers/utilisateur.js'
+import { roleList, getRoleById, addRole, deleteRoleById, updateRole } from "./controllers/role.js";
+import { reservationList, getReservationById, addReservation, } from "./controllers/reservation.js";
 
 const env = dotenv.config().parsed
 
@@ -48,6 +52,21 @@ app.post('/addAuteur',addAuteur)
 app.delete('/deleteAuteur/:id',deleteAuteurById)
 
 /**
+ * Partie reservee au traitement des routes sur la table emprunt
+ */
+
+//Liste des emprunts
+app.get('/empruntList', empruntList)
+
+// retrouver un emprunt selon son id
+app.get('/empruntList/:id', getEmpruntById)
+
+// ajouter un emprunt 
+app.post('/addEmprunt',addEmprunt)
+// Supprimer un emprunt suivant son id
+app.delete('/deleteEmprunt/:id',deleteEmpruntById)
+
+/**
  * Partie reservee au traitement des routes sur la table Rayon
  */
 
@@ -62,9 +81,67 @@ app.post('/addRayon',addRayon)
 // Supprimer un rayon suivant son id
 app.delete('/deleteRayon/:id',deleteRayonById)
 
-// liste des livres
-app.get('/liste_livre', livreList)
+/**
+ * Partie reservee au traitement des routes sur la table Livre
+ */
 
+//Liste des livres
+app.get('/livreList', livreList)
+
+// retrouver un livre selon son id
+app.get('/livreList/:id', getLivreById)
+
+// ajouter un livre 
+app.post('/addLivre',addLivre)
+// Supprimer un livre suivant son id
+app.delete('/deleteLivre/:id',deleteLivreById)
+
+/**
+ * Partie reservee au traitement des routes sur la table Utilisateur
+ */
+
+//Liste des utilisateurs
+app.get('/utilisateurList', utilisateurList)
+
+// retrouver un utilisateur selon son id
+app.get('/utilisateurList/:id', getUtilisateurById)
+
+// ajouter un utilisateur
+app.post('/addUtilisateur',addUtilisateur)
+// Supprimer un utilisateur suivant son id
+app.delete('/deleteUtilisateur/:id',deleteUtilisateurById)
+// Mettre a jour un utilisateur
+app.put('updateUtilisateur/:id',updateUtilisateur)
+
+/**
+ * Partie reservee au traitement des routes sur la table Role
+ */
+
+//Liste des roles
+app.get('/roleList', roleList)
+
+// retrouver un role selon son id
+app.get('/roleList/:id', getRoleById)
+
+// ajouter un role
+app.post('/addRole',addRole)
+// Supprimer un role suivant son id
+app.delete('/deleteRole/:id',deleteRoleById)
+
+/**
+ * Partie reservee au traitement des routes sur la table Reservation
+ */
+
+//Liste des reservations
+app.get('/reservationList', reservationList)
+
+// retrouver un reservation selon son id
+app.get('/reservationList/:id', getReservationById)
+
+// ajouter un reservation
+app.post('/addReservation',addReservation)
+// Supprimer un reservation suivant son id
+app.delete('/deleteReservation/:id',deleteReservationById)
 const port = 5000
 
 app.listen(port, () => console.log(`Notre serveur tourne sur le port ${port}`))
