@@ -7,7 +7,8 @@ import { DataTypes } from "sequelize";
 const Utilisateur = database.define('auteur', {    
     nomUtilisateur: DataTypes.STRING,
     prenomUtilisateur: DataTypes.STRING,
-    motDePasseUtilisateur: DataTypes.STRING
+    motDePasseUtilisateur: DataTypes.STRING,
+    emailUtilisateur : DataTypes.STRING
     
     
 })

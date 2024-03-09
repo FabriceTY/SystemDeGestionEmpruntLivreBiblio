@@ -4,18 +4,19 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 import compression from 'compression'
 import helmet from 'helmet'
+import { body } from 'express-validator'
 
 //Creation de notre application 
 
 //Voir le contenu de .env
 import dotenv from 'dotenv'
-import { auteurList, getAuteurById, addAuteur, deleteAuteurById, updateAuteur} from './controllers/auteur.js'
+import { auteurList, getAuteurById, addAuteur, deleteAuteurById, updateAuteur, getAuteurs} from './controllers/auteur.js'
 import { rayonList, getRayonById, addRayon, deleteRayonById, updateRayon} from './controllers/rayon.js'
 import { empruntList, getEmpruntById, addEmprunt, deleteEmpruntById, updateEmprunt} from './controllers/emprunt.js'
 import { livreList, getLivreById, addLivre, deleteLivreById, updateLivre } from './controllers/livre.js'
 import { utilisateurList, getUtilisateurById, addUtilisateur, deleteUtilisateurById, updateUtilisateur } from './controllers/utilisateur.js'
 import { roleList, getRoleById, addRole, deleteRoleById, updateRole } from "./controllers/role.js";
-import { reservationList, getReservationById, addReservation, } from "./controllers/reservation.js";
+//import { reservationList, getReservationById, addReservation, } from "./controllers/reservation.js";
 
 const env = dotenv.config().parsed
 
@@ -47,9 +48,14 @@ app.get('/auteurList', auteurList)
 app.get('/auteurList/:id', getAuteurById)
 
 // ajouter un auteur 
-app.post('/addAuteur',addAuteur)
+app.post('/addAuteur',body('nomAuteur').notEmpty(), addAuteur)
+// Mettre à jour un auteur
+app.put('/updateAuteur/:id', updateAuteur);
 // Supprimer un auteur suivant son id
 app.delete('/deleteAuteur/:id',deleteAuteurById)
+
+// Route GET pour la liste des auteurs avec pagination
+app.get('/auteurList', getAuteurs);
 
 /**
  * Partie reservee au traitement des routes sur la table emprunt
@@ -111,7 +117,7 @@ app.post('/addUtilisateur',addUtilisateur)
 // Supprimer un utilisateur suivant son id
 app.delete('/deleteUtilisateur/:id',deleteUtilisateurById)
 // Mettre a jour un utilisateur
-app.put('updateUtilisateur/:id',updateUtilisateur)
+app.put('updateUtilisateur/:id',updateUtilisateur)  
 
 /**
  * Partie reservee au traitement des routes sur la table Role
@@ -125,13 +131,15 @@ app.get('/roleList/:id', getRoleById)
 
 // ajouter un role
 app.post('/addRole',addRole)
+// Mettre à jour un role
+app.put('/updateRole', updateRole);
 // Supprimer un role suivant son id
 app.delete('/deleteRole/:id',deleteRoleById)
 
 /**
  * Partie reservee au traitement des routes sur la table Reservation
  */
-
+/*
 //Liste des reservations
 app.get('/reservationList', reservationList)
 
@@ -141,7 +149,7 @@ app.get('/reservationList/:id', getReservationById)
 // ajouter un reservation
 app.post('/addReservation',addReservation)
 // Supprimer un reservation suivant son id
-app.delete('/deleteReservation/:id',deleteReservationById)
+app.delete('/deleteReservation/:id',deleteReservationById)*/
 const port = 5000
 
 app.listen(port, () => console.log(`Notre serveur tourne sur le port ${port}`))

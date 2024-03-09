@@ -6,7 +6,7 @@ import Rayon from "./Rayon.js";
 import Utilisateur from "./Utilisateur.js";
 import Role from "./Role.js";
 import Emprunt from "./Emprunt.js";
-import { Reservation } from "./Reservation.js";
+//import { Reservation } from "./Reservation.js";
 
 //Creation des relations
 
@@ -25,10 +25,17 @@ Utilisateur.belongsTo(Role);
 
 // Un role est attribue a plusieurs utilisateurs
 Role.hasMany(Utilisateur);
-
+/*
 // Definition la relation Many-to-Many entre Livre et Utilisateur
 Livre.belongsToMany(Utilisateur, { through: 'Reservation' });
-Utilisateur.belongsToMany(Livre, { through: 'Reservation' });
+Utilisateur.belongsToMany(Livre, { through: 'Reservation' });*/
+
+// un utilisateur peut reserver plusieurs livres
+Utilisateur.hasMany(Livre); // Définition d'un alias pour la relation
+
+// un livre peut etre reserve par un seul utilisateur 
+Livre.belongsTo(Utilisateur); 
+
 
 // Un utilisateur effectue plusieurs emprunts
 Utilisateur.hasMany(Emprunt);
@@ -36,4 +43,5 @@ Utilisateur.hasMany(Emprunt);
 // Un emprunt est effectue par un utilisateur
 Emprunt.belongsTo(Utilisateur);
 
-export {Auteur,Livre,Rayon, Role, Utilisateur, Emprunt, Reservation}
+//export {Auteur,Livre,Rayon, Role, Utilisateur, Emprunt, Reservation}
+export {Auteur,Livre,Rayon, Role, Utilisateur, Emprunt}

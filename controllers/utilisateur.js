@@ -29,7 +29,7 @@ export const getUtilisateurById = async(req, res)=>{
 export const updateUtilisateur = async (req, res) => {
     // Extraire les donnees de la requete
     const { id } = req.params; // L'identifiant de l'utilisateur à mettre à jour
-    const { nomUtilisateur, prenomUtilisateur, motDePasseUtilisateur } = req.body;
+    const { nomUtilisateur, prenomUtilisateur, motDePasseUtilisateur,emailUtilisateur } = req.body;
 
     try {
         // Rechercher l'utilisateur dans la base de donnees par son ID
@@ -44,7 +44,8 @@ export const updateUtilisateur = async (req, res) => {
         await utilisateur.update({
             nomUtilisateur: nomUtilisateur,
             prenomUtilisateur: prenomUtilisateur,
-            motDePasseUtilisateur: motDePasseUtilisateur
+            motDePasseUtilisateur: motDePasseUtilisateur,
+            emailUtilisateur:emailUtilisateur
         });
 
         // Renvoyer une reponse avec les details de l'utilisateur mis a jour
@@ -58,14 +59,15 @@ export const updateUtilisateur = async (req, res) => {
 // Contrôleur pour ajouter un element dans la table Utilisateur
 export const addUtilisateur = async (req, res) => {
     // Extraire les donnees de la requete
-    const { nomUtilisateur,prenomUtilisateur, motDePasseUtilisateur } = req.body;
+    const { nomUtilisateur,prenomUtilisateur, motDePasseUtilisateur, emailUtilisateur } = req.body;
 
     try {
         // Créer un nouvel utilisateur dans la base de donnees
         const newUtilisateur = await Utilisateur.create({            
             nomUtilisateur: nomUtilisateur,
             prenomUtilisateur: prenomUtilisateur,
-            motDePasseUtilisateur: motDePasseUtilisateur
+            motDePasseUtilisateur: motDePasseUtilisateur,
+            emailUtilisateur:emailUtilisateur
         });
 
         // Envoyer une reponse avec les détails de l'utilisateur ajouté

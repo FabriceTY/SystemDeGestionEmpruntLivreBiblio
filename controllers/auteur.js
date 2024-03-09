@@ -1,4 +1,7 @@
 import { Auteur } from "../models/relations.js";
+import { body, check, param , validationResult } from 'express-validator';
+
+
 
 // fonction (controller) pour avoir la liste des auteurs
 export const auteurList = async (req, res) => {
@@ -24,12 +27,38 @@ export const getAuteurById = async(req, res)=>{
         res.status(404).json({message:error.message})
     }    
 }
+/*
+// Controler pour ajouter un auteur
+export const addAuteur = async (req, res)=>{
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.status(400).json({errors:errors.array()});
+    }
+    const auteur = {nomAuteur: req.body.nomAuteur, prenomAuteur:req.body.prenomAuteur,
+        sexeAuteur:req.body.sexeAuteur}
+    const result = await Auteur.create(auteur)
+    res.status(201).json({data:result, message:"Auteur cree avec succes"})
+}
 
-
-// Contrôleur pour ajouter un element dans la table Auteur
+*/
+// Controleur pour ajouter un element dans la table Auteur
 export const addAuteur = async (req, res) => {
     // Extraire les donnees de la requete
     const { nomAuteur, prenomAuteur, sexeAuteur } = req.body;
+    
+    // Valider les donnees de la requete
+    body('nomAuteur', 'Le nom de l\'auteur est requis').notEmpty().run(req);
+    body('prenomAuteur', 'Le prénom de l\'auteur est requis').notEmpty();
+    body('sexeAuteur', 'Le sexe de l\'auteur est requis').notEmpty();
+     /*req.checkBody('nomAuteur', 'Le nom de l\'auteur est requis').notEmpty();
+     req.checkBody('prenomAuteur', 'Le prénom de l\'auteur est requis').notEmpty();
+     req.checkBody('sexeAuteur', 'Le sexe de l\'auteur est requis').notEmpty();*/
+ 
+     // Verification les erreurs de validation
+     const errors = validationResult(req);
+     if (errors) {
+         return res.status(400).json({ errors: errors.array() });
+     }
 
     try {
         // Créer un nouvel auteur dans la base de donnees
@@ -47,10 +76,11 @@ export const addAuteur = async (req, res) => {
     }
 };
 
+
 // Controleur pour mettre a jour un element dans la table Auteur
 export const updateAuteur = async (req, res) => {
     // Extraire les donnees de la requete
-    const { id } = req.params; // L'identifiant de l'auteur à mettre à jour
+    const { id } = req.params; // L'identifiant de l'auteur a mettre a jour
     const { nomAuteur, prenomAuteur, sexeAuteur } = req.body;
 
     try {
@@ -102,4 +132,26 @@ export const deleteAuteurById = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 };
+
+// Controleur pour obtenir la liste des auteurs avec pagination
+export const getAuteurs = async (req, res) => {
+    // Extraire les parametres de pagination de la requete
+    const { page = 1, limit = 10 } = req.query;
+    const offset = (page - 1) * limit;
+
+    try {
+        // Recuperer la liste des auteurs en utilisant les parametres de pagination
+        const auteurs = await Auteur.findAndCountAll({
+            limit: limit,
+            offset: offset
+        });
+
+        // Envoyer la liste des auteurs en reponse
+        res.status(200).json({ data: auteurs.rows, total: auteurs.count });
+    } catch (error) {
+        // Gerer les erreurs
+        res.status(500).json({ message: error.message });
+    }
+};
+
 
