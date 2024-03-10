@@ -69,6 +69,8 @@ app.get('/empruntList/:id', getEmpruntById)
 
 // ajouter un emprunt 
 app.post('/addEmprunt',addEmprunt)
+// Mettre à jour un emprunt
+app.put('/updateEmprunt/:id', updateEmprunt);
 // Supprimer un emprunt suivant son id
 app.delete('/deleteEmprunt/:id',deleteEmpruntById)
 
@@ -84,6 +86,8 @@ app.get('/rayonList/:id', getRayonById)
 
 // ajouter un rayon 
 app.post('/addRayon',addRayon)
+// Mettre à jour un rayon
+app.put('/updateRayon/:id', updateRayon);
 // Supprimer un rayon suivant son id
 app.delete('/deleteRayon/:id',deleteRayonById)
 
@@ -99,6 +103,8 @@ app.get('/livreList/:id', getLivreById)
 
 // ajouter un livre 
 app.post('/addLivre',addLivre)
+// Mettre à jour un livre
+app.put('/updateLivre/:id', updateLivre);
 // Supprimer un livre suivant son id
 app.delete('/deleteLivre/:id',deleteLivreById)
 

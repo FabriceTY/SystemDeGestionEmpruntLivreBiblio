@@ -10,15 +10,17 @@ import Emprunt from "./Emprunt.js";
 
 //Creation des relations
 
-//Un livre a un auteur
-Livre.belongsTo(Auteur)
 //Un auteur peut ecrire plusieur livre
 Auteur.hasMany(Livre)
+//Un livre a un auteur
+Livre.belongsTo(Auteur)
 
-//Un livre appartient à un rayon.
-Livre.belongsTo(Rayon) 
+
 //Un rayon possède plusieurs livres
 Rayon.hasMany(Livre)
+//Un livre appartient à un rayon.
+Livre.belongsTo(Rayon) 
+
 
 // Un utilisateur appartient a un seul role
 Utilisateur.belongsTo(Role);
@@ -44,4 +46,6 @@ Utilisateur.hasMany(Emprunt);
 Emprunt.belongsTo(Utilisateur);
 
 //export {Auteur,Livre,Rayon, Role, Utilisateur, Emprunt, Reservation}
-export {Auteur,Livre,Rayon, Role, Utilisateur, Emprunt}
+
+export {Auteur,Livre,Rayon, Emprunt, Utilisateur, Role}
+

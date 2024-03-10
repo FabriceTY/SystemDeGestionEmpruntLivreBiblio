@@ -4,7 +4,7 @@ import { DataTypes } from "sequelize";
 
 //Creation de la table Utilisateur
 
-const Utilisateur = database.define('auteur', {    
+const Utilisateur = database.define('utilisateur', {    
     nomUtilisateur: DataTypes.STRING,
     prenomUtilisateur: DataTypes.STRING,
     motDePasseUtilisateur: DataTypes.STRING,
@@ -13,4 +13,4 @@ const Utilisateur = database.define('auteur', {
     
 })
 
-export default Utilisateur
+export default Utilisateur;

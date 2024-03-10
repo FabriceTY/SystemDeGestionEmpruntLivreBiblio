@@ -4,7 +4,7 @@ import { DataTypes } from "sequelize";
 
 //Creation de la table Role
 
-const Role = database.define('auteur', {    
+const Role = database.define('role', {    
     nomRole: DataTypes.STRING,
     descriptionRole: DataTypes.TEXT,
     typeRole: DataTypes.STRING

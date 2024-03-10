@@ -4,7 +4,7 @@ import { DataTypes } from "sequelize";
 
 //Creation de la table Reservation
 
-const Reservation = database.define('auteur', {    
+const Reservation = database.define('reservation', {    
     dateReservation: DataTypes.DATE   
     
 })

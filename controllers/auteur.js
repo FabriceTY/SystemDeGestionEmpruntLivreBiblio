@@ -27,7 +27,7 @@ export const getAuteurById = async(req, res)=>{
         res.status(404).json({message:error.message})
     }    
 }
-/*
+
 // Controler pour ajouter un auteur
 export const addAuteur = async (req, res)=>{
     const errors = validationResult(req);
@@ -40,7 +40,7 @@ export const addAuteur = async (req, res)=>{
     res.status(201).json({data:result, message:"Auteur cree avec succes"})
 }
 
-*/
+/*
 // Controleur pour ajouter un element dans la table Auteur
 export const addAuteur = async (req, res) => {
     // Extraire les donnees de la requete
@@ -50,9 +50,9 @@ export const addAuteur = async (req, res) => {
     body('nomAuteur', 'Le nom de l\'auteur est requis').notEmpty().run(req);
     body('prenomAuteur', 'Le prénom de l\'auteur est requis').notEmpty();
     body('sexeAuteur', 'Le sexe de l\'auteur est requis').notEmpty();
-     /*req.checkBody('nomAuteur', 'Le nom de l\'auteur est requis').notEmpty();
-     req.checkBody('prenomAuteur', 'Le prénom de l\'auteur est requis').notEmpty();
-     req.checkBody('sexeAuteur', 'Le sexe de l\'auteur est requis').notEmpty();*/
+     //req.checkBody('nomAuteur', 'Le nom de l\'auteur est requis').notEmpty();
+     //req.checkBody('prenomAuteur', 'Le prénom de l\'auteur est requis').notEmpty();
+     //req.checkBody('sexeAuteur', 'Le sexe de l\'auteur est requis').notEmpty();
  
      // Verification les erreurs de validation
      const errors = validationResult(req);
@@ -74,7 +74,7 @@ export const addAuteur = async (req, res) => {
         // Gérer les erreurs
         res.status(404).json({ message: error.message });
     }
-};
+};*/
 
 
 // Controleur pour mettre a jour un element dans la table Auteur
