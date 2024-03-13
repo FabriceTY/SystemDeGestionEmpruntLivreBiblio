@@ -9,6 +9,6 @@ const Auteur = database.define('auteur', {
     prenomAuteur: DataTypes.STRING,
     sexeAuteur: DataTypes.STRING
     
-})
+}, { timestamps: false })
 
 export default Auteur

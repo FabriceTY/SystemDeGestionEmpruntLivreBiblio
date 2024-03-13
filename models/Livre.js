@@ -8,6 +8,6 @@ const Livre = database.define('livre', {
     nomLivre: DataTypes.STRING,
     nombrePageLivre: DataTypes.INTEGER    
     
-})
+}, { timestamps: false })
 
 export default Livre

@@ -7,6 +7,6 @@ import { DataTypes } from "sequelize";
 const Reservation = database.define('reservation', {    
     dateReservation: DataTypes.DATE   
     
-})
+}, { timestamps: false })
 
 export default Reservation;

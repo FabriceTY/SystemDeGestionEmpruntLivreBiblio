@@ -9,6 +9,6 @@ const Role = database.define('role', {
     descriptionRole: DataTypes.TEXT,
     typeRole: DataTypes.STRING
     
-})
+}, { timestamps: false })
 
 export default Role

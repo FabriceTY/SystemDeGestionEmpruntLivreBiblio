@@ -1,5 +1,9 @@
 import { Rayon } from "../models/relations.js";
 
+//Module pour les resultats de la validation
+import { validationResult } from "express-validator";
+
+
 // fonction (controller) pour avoir la liste des rayons
 export const rayonList = async (req, res) => {
     try{
@@ -28,6 +32,11 @@ export const getRayonById = async(req, res)=>{
 
 // Contrôleur pour ajouter un element dans la table Rayon
 export const addRayon = async (req, res) => {
+    //Recuperation des resultats de la validation 
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     // Extraire les donnees de la requete
     const { nomRayon, descriptionRayon } = req.body;
 
@@ -49,6 +58,11 @@ export const addRayon = async (req, res) => {
 
 // Controleur pour mettre a jour un element dans la table Rayon
 export const updateRayon = async (req, res) => {
+    //Recuperation des resultats de la validation 
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     // Extraire les donnees de la requete
     const { id } = req.params; // L'identifiant du rayon a mettre a jour
     const { nomRayon, descriptionRayon } = req.body;

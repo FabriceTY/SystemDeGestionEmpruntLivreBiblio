@@ -8,6 +8,6 @@ const Rayon = database.define('rayon', {
     nomRayon: DataTypes.STRING, // bande-anime, fiction, policier
     descriptionRayon: DataTypes.TEXT    
     
-})
+}, { timestamps: false })
 
 export default Rayon

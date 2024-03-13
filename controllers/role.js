@@ -1,5 +1,9 @@
 import { Role } from "../models/relations.js";
 
+//Module pour les resultats de la validation
+import { validationResult } from "express-validator";
+
+
 // fonction (controller) pour avoir la liste des roles
 export const roleList = async (req, res) => {
     try{
@@ -27,6 +31,11 @@ export const getRoleById = async(req, res)=>{
 
 // Controleur pour mettre a jour un element dans la table Role
 export const updateRole = async (req, res) => {
+    //Recuperation des resultats de la validation 
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     // Extraire les donnees de la requete
     const { id } = req.params; // L'identifiant du role a mettre a jour
     const { nomRole, descriptionRole, typeRole } = req.body;
@@ -58,6 +67,11 @@ export const updateRole = async (req, res) => {
 
 // Contrôleur pour ajouter un element dans la table Role
 export const addRole = async (req, res) => {
+    //Recuperation des resultats de la validation 
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     // Extraire les donnees de la requete
     const { nomRole, descriptionRole, typeRole } = req.body;
 

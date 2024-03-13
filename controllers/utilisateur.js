@@ -1,5 +1,10 @@
 import { Utilisateur } from "../models/relations.js";
+//Importer le module de hachage
+import  bcrypt  from "bcrypt";
+//import bcrypt from 'bcrypt.js'
 
+//Validation
+import { validationResult } from "express-validator";
 // fonction (controller) pour avoir la liste des utilisateurs
 export const utilisateurList = async (req, res) => {
     try{
@@ -27,9 +32,16 @@ export const getUtilisateurById = async(req, res)=>{
 
 // Controleur pour mettre a jour un element dans la table Utilisateur
 export const updateUtilisateur = async (req, res) => {
+    //Recuperation des resultats de la validation 
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     // Extraire les donnees de la requete
     const { id } = req.params; // L'identifiant de l'utilisateur à mettre à jour
-    const { nomUtilisateur, prenomUtilisateur, motDePasseUtilisateur,emailUtilisateur } = req.body;
+    const { nomUtilisateur, prenomUtilisateur, motDePasseUtilisateur,emailUtilisateur,roleId } = req.body;
+    //Hachage du mot de passe 
+    const mdpHache = bcrypt.hashSync(motDePasseUtilisateur, 10)
 
     try {
         // Rechercher l'utilisateur dans la base de donnees par son ID
@@ -45,7 +57,8 @@ export const updateUtilisateur = async (req, res) => {
             nomUtilisateur: nomUtilisateur,
             prenomUtilisateur: prenomUtilisateur,
             motDePasseUtilisateur: motDePasseUtilisateur,
-            emailUtilisateur:emailUtilisateur
+            emailUtilisateur:emailUtilisateur,
+            roleId
         });
 
         // Renvoyer une reponse avec les details de l'utilisateur mis a jour
@@ -58,16 +71,24 @@ export const updateUtilisateur = async (req, res) => {
 
 // Contrôleur pour ajouter un element dans la table Utilisateur
 export const addUtilisateur = async (req, res) => {
+     //Recuperation des resultats de la validation 
+     const errors = validationResult(req)
+     if (!errors.isEmpty()) {
+         return res.status(400).json({ errors: errors.array() });
+     }
     // Extraire les donnees de la requete
-    const { nomUtilisateur,prenomUtilisateur, motDePasseUtilisateur, emailUtilisateur } = req.body;
+    const { nomUtilisateur,prenomUtilisateur, motDePasseUtilisateur, emailUtilisateur,roleId } = req.body;
+    //Hachage du mot de passe 
+    const mdpHache = bcrypt.hashSync(motDePasseUtilisateur, 10)
 
     try {
         // Créer un nouvel utilisateur dans la base de donnees
         const newUtilisateur = await Utilisateur.create({            
-            nomUtilisateur: nomUtilisateur,
-            prenomUtilisateur: prenomUtilisateur,
-            motDePasseUtilisateur: motDePasseUtilisateur,
-            emailUtilisateur:emailUtilisateur
+            nomUtilisateur,
+            prenomUtilisateur,
+            motDePasseUtilisateur: mdpHache,
+            emailUtilisateur:emailUtilisateur,
+            roleId
         });
 
         // Envoyer une reponse avec les détails de l'utilisateur ajouté

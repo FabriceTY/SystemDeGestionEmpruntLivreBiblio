@@ -1,4 +1,6 @@
 import { Livre } from "../models/relations.js";
+//Module pour les resultats de la validation
+import { validationResult } from "express-validator";
 
 // fonction (controller) pour avoir la liste des livres
 export const livreList = async (req, res) => {
@@ -28,14 +30,22 @@ export const getLivreById = async(req, res)=>{
 
 // Contrôleur pour ajouter un element dans la table Livre
 export const addLivre = async (req, res) => {
+    //Recuperation des resultats de la validation 
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     // Extraire les donnees de la requete
-    const { nomLivre, nombrePageLivre } = req.body;
+    const { nomLivre, nombrePageLivre,auteurId, rayonId, utilisateurId } = req.body;
 
     try {
         // Créer un nouveau livre dans la base de donnees
         const newLivre = await Livre.create({            
             nomLivre: nomLivre,
-            nombrePageLivre: nombrePageLivre
+            nombrePageLivre: nombrePageLivre,
+            auteurId,
+            rayonId,
+            utilisateurId
             
         });
 
@@ -49,9 +59,14 @@ export const addLivre = async (req, res) => {
 
 // Controleur pour mettre a jour un element dans la table Livre
 export const updateLivre = async (req, res) => {
+    //Recuperation des resultats de la validation 
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     // Extraire les donnees de la requete
     const { id } = req.params; // L'identifiant du livre a mettre à jour
-    const { nomLivre, nombrePageLivre } = req.body;
+    const { nomLivre, nombrePageLivre, auteurId, rayonId, utilisateurId } = req.body;
 
     try {
         // Rechercher un livre dans la base de donnees par son ID
@@ -66,6 +81,9 @@ export const updateLivre = async (req, res) => {
         await livre.update({
             nomLivre: nomLivre,
             nombrePageLivre: nombrePageLivre,
+            auteurId,
+            rayonId,
+            utilisateurId
             
         });
 

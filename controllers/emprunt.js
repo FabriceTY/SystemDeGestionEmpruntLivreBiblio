@@ -1,5 +1,9 @@
 import { Emprunt } from "../models/relations.js";
 
+//Module pour les resultats de la validation
+import { validationResult } from "express-validator";
+
+
 // fonction (controller) pour avoir la liste des emprunts
 export const empruntList = async (req, res) => {
     try{
@@ -28,17 +32,23 @@ export const getEmpruntById = async(req, res)=>{
 
 // Controleur pour ajouter un element dans la table Emprunt
 export const addEmprunt = async (req, res) => {
+    //Recuperation des resultats de la validation 
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     // Extraire les donnees de la requete
-    const { nomDocumentEmprunt, dateEmprunt, datePrevueRetourEmprunt,dateEffectiveRetour,statutEmprunt } = req.body;
+    const { nomDocumentEmprunt, dateEmprunt, datePrevueRetourEmprunt,dateEffectiveRetour,statutEmprunt,utilisateurId } = req.body;
 
     try {
         // Créer un nouvel emprunt dans la base de donnees
         const newEmprunt = await Emprunt.create({            
-            nomDocumentEmprunt: nomDocumentEmprunt,
+            nomDocumentEmprunt,
             dateEmprunt: dateEmprunt,
             datePrevueRetourEmprunt: datePrevueRetourEmprunt,
             dateEffectiveRetour:dateEffectiveRetour,
-            statutEmprunt:statutEmprunt
+            statutEmprunt,
+            utilisateurId
         });
 
         // Envoyer une reponse avec les details de l'emprunt ajoute
@@ -51,9 +61,14 @@ export const addEmprunt = async (req, res) => {
 
 // Controleur pour mettre a jour un element dans la table Emprunt
 export const updateEmprunt = async (req, res) => {
+    //Recuperation des resultats de la validation 
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     // Extraire les donnees de la requete
     const { id } = req.params; // L'identifiant de l'emprunt a mettre à jour
-    const { nomDocumentEmprunt, dateEmprunt, datePrevueRetourEmprunt, dateEffectiveRetour, statutEmprunt } = req.body;
+    const { nomDocumentEmprunt, dateEmprunt, datePrevueRetourEmprunt, dateEffectiveRetour, statutEmprunt,utilisateurId } = req.body;
 
     try {
         // Rechercher l'emprunt dans la base de donnees par son ID
@@ -70,7 +85,8 @@ export const updateEmprunt = async (req, res) => {
             dateEmprunt: dateEmprunt,
             datePrevueRetourEmprunt: datePrevueRetourEmprunt,
             dateEffectiveRetour: dateEffectiveRetour,
-            statutEmprunt: statutEmprunt
+            statutEmprunt: statutEmprunt,
+            utilisateurId
         });
 
         // Renvoyer une reponse avec les details de l'emprunt mis a jour

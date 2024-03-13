@@ -1,5 +1,5 @@
 import { Auteur } from "../models/relations.js";
-import { body, check, param , validationResult } from 'express-validator';
+import {validationResult } from 'express-validator';
 
 
 
@@ -28,37 +28,17 @@ export const getAuteurById = async(req, res)=>{
     }    
 }
 
-// Controler pour ajouter un auteur
-export const addAuteur = async (req, res)=>{
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        res.status(400).json({errors:errors.array()});
-    }
-    const auteur = {nomAuteur: req.body.nomAuteur, prenomAuteur:req.body.prenomAuteur,
-        sexeAuteur:req.body.sexeAuteur}
-    const result = await Auteur.create(auteur)
-    res.status(201).json({data:result, message:"Auteur cree avec succes"})
-}
 
-/*
 // Controleur pour ajouter un element dans la table Auteur
 export const addAuteur = async (req, res) => {
+
+    //Recuperation des resultats de la validation 
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     // Extraire les donnees de la requete
-    const { nomAuteur, prenomAuteur, sexeAuteur } = req.body;
-    
-    // Valider les donnees de la requete
-    body('nomAuteur', 'Le nom de l\'auteur est requis').notEmpty().run(req);
-    body('prenomAuteur', 'Le prénom de l\'auteur est requis').notEmpty();
-    body('sexeAuteur', 'Le sexe de l\'auteur est requis').notEmpty();
-     //req.checkBody('nomAuteur', 'Le nom de l\'auteur est requis').notEmpty();
-     //req.checkBody('prenomAuteur', 'Le prénom de l\'auteur est requis').notEmpty();
-     //req.checkBody('sexeAuteur', 'Le sexe de l\'auteur est requis').notEmpty();
- 
-     // Verification les erreurs de validation
-     const errors = validationResult(req);
-     if (errors) {
-         return res.status(400).json({ errors: errors.array() });
-     }
+    const { nomAuteur, prenomAuteur, sexeAuteur } = req.body;      
 
     try {
         // Créer un nouvel auteur dans la base de donnees
@@ -74,11 +54,16 @@ export const addAuteur = async (req, res) => {
         // Gérer les erreurs
         res.status(404).json({ message: error.message });
     }
-};*/
+};
 
 
 // Controleur pour mettre a jour un element dans la table Auteur
 export const updateAuteur = async (req, res) => {
+    //Recuperation des resultats de la validation 
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     // Extraire les donnees de la requete
     const { id } = req.params; // L'identifiant de l'auteur a mettre a jour
     const { nomAuteur, prenomAuteur, sexeAuteur } = req.body;

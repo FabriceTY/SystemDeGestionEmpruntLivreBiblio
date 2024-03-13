@@ -4,18 +4,18 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 import compression from 'compression'
 import helmet from 'helmet'
-import { body } from 'express-validator'
+//import { body } from 'express-validator'
 
 //Creation de notre application 
 
 //Voir le contenu de .env
 import dotenv from 'dotenv'
-import { auteurList, getAuteurById, addAuteur, deleteAuteurById, updateAuteur, getAuteurs} from './controllers/auteur.js'
+/*import { auteurList, getAuteurById, addAuteur, deleteAuteurById, updateAuteur, getAuteurs} from './controllers/auteur.js'
 import { rayonList, getRayonById, addRayon, deleteRayonById, updateRayon} from './controllers/rayon.js'
 import { empruntList, getEmpruntById, addEmprunt, deleteEmpruntById, updateEmprunt} from './controllers/emprunt.js'
 import { livreList, getLivreById, addLivre, deleteLivreById, updateLivre } from './controllers/livre.js'
 import { utilisateurList, getUtilisateurById, addUtilisateur, deleteUtilisateurById, updateUtilisateur } from './controllers/utilisateur.js'
-import { roleList, getRoleById, addRole, deleteRoleById, updateRole } from "./controllers/role.js";
+import { roleList, getRoleById, addRole, deleteRoleById, updateRole } from "./controllers/role.js";*/
 //import { reservationList, getReservationById, addReservation, } from "./controllers/reservation.js";
 
 const env = dotenv.config().parsed
@@ -25,7 +25,14 @@ console.log('env',env)
 //importer la base de donnee
 
 import database from './config/connexion.js'
-database.sync()
+import  routeUtilisateur from "./routes/routeUtilisateur.js";
+import  routeAuteur  from "./routes/routeAuteur.js";
+import  routeEmprunt  from "./routes/routeEmprunt.js";
+import routeRole from "./routes/routeRole.js";
+import  routeRayon  from "./routes/routeRayon.js";
+import  routeLivre  from "./routes/routeLivre.js";
+import  routeAutentification  from "./routes/routeAuthentification.js";
+database.sync({alter:true})
 
 const app = express()
 
@@ -37,10 +44,20 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 
+// Utilisation des modules importes
+
+app.use('/utilisateur', routeUtilisateur)
+app.use('/login', routeAutentification)
+app.use('/livre', routeLivre)
+app.use('/emprunt', routeEmprunt)
+app.use('/auteur', routeAuteur)
+app.use('/rayon', routeRayon)
+app.use('/role', routeRole)
+
 /**
  * Partie reservee au traitement des routes sur la table Auteur
  */
-
+/*
 //Liste des auteurs
 app.get('/auteurList', auteurList)
 
@@ -56,11 +73,13 @@ app.delete('/deleteAuteur/:id',deleteAuteurById)
 
 // Route GET pour la liste des auteurs avec pagination
 app.get('/auteurList', getAuteurs);
+*/
 
 /**
  * Partie reservee au traitement des routes sur la table emprunt
  */
 
+/*
 //Liste des emprunts
 app.get('/empruntList', empruntList)
 
@@ -73,11 +92,13 @@ app.post('/addEmprunt',addEmprunt)
 app.put('/updateEmprunt/:id', updateEmprunt);
 // Supprimer un emprunt suivant son id
 app.delete('/deleteEmprunt/:id',deleteEmpruntById)
+*/
 
 /**
  * Partie reservee au traitement des routes sur la table Rayon
  */
 
+/*
 //Liste des rayons
 app.get('/rayonList', rayonList)
 
@@ -90,11 +111,13 @@ app.post('/addRayon',addRayon)
 app.put('/updateRayon/:id', updateRayon);
 // Supprimer un rayon suivant son id
 app.delete('/deleteRayon/:id',deleteRayonById)
+*/
 
 /**
  * Partie reservee au traitement des routes sur la table Livre
  */
 
+/*
 //Liste des livres
 app.get('/livreList', livreList)
 
@@ -107,11 +130,13 @@ app.post('/addLivre',addLivre)
 app.put('/updateLivre/:id', updateLivre);
 // Supprimer un livre suivant son id
 app.delete('/deleteLivre/:id',deleteLivreById)
+*/
 
 /**
  * Partie reservee au traitement des routes sur la table Utilisateur
  */
 
+/*
 //Liste des utilisateurs
 app.get('/utilisateurList', utilisateurList)
 
@@ -124,11 +149,13 @@ app.post('/addUtilisateur',addUtilisateur)
 app.delete('/deleteUtilisateur/:id',deleteUtilisateurById)
 // Mettre a jour un utilisateur
 app.put('updateUtilisateur/:id',updateUtilisateur)  
+*/
 
 /**
  * Partie reservee au traitement des routes sur la table Role
  */
 
+/*
 //Liste des roles
 app.get('/roleList', roleList)
 
@@ -141,6 +168,7 @@ app.post('/addRole',addRole)
 app.put('/updateRole', updateRole);
 // Supprimer un role suivant son id
 app.delete('/deleteRole/:id',deleteRoleById)
+*/
 
 /**
  * Partie reservee au traitement des routes sur la table Reservation

@@ -11,6 +11,6 @@ const Utilisateur = database.define('utilisateur', {
     emailUtilisateur : DataTypes.STRING
     
     
-})
+}, { timestamps: false })
 
 export default Utilisateur;

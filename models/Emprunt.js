@@ -12,6 +12,6 @@ const Emprunt = database.define('emprunt', {
     statutEmprunt:DataTypes.STRING // statut = en cours, en retard ou retourne 
     
     
-})
+}, { timestamps: false })
 
 export default Emprunt
