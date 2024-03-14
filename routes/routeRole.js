@@ -18,11 +18,7 @@ routeRole
     .post("/",verifierToken, autoriser(['admin']), roleRules, addRole)
     .put("/:id", verifierToken, autoriser(['admin']),roleRules, updateRole)
     .delete("/:id",verifierToken, autoriser(['admin']),deleteRoleById)
-    /*.get("/", verifierToken, roleList)
-    .get("/:id", verifierToken,getRoleById)
-    .post("/", verifierToken, autoriser(['admin']), roleRules, addRole)
-    .put("/:id", verifierToken, autoriser(['admin', 'prof']), roleRules, updateRole)
-    .delete("/:id", verifierToken, autoriser(['admin']), deleteRoleById)*/
+    
 
 
 export default routeRole

@@ -15,7 +15,7 @@ const routeEmprunt = Router()
 routeEmprunt
     .get("/", empruntList)
     .get("/:id", getEmpruntById)
-    .post("/", empruntRules, addEmprunt)
+    .post("/",verifierToken, autoriser(['admin']), empruntRules, addEmprunt)
     .put("/:id",autoriser(['admin']), empruntRules, updateEmprunt)
     .delete("/:id", verifierToken, autoriser(['admin']), deleteEmpruntById)
     // .get("/", verifierToken, empruntList)
