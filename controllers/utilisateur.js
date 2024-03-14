@@ -1,6 +1,6 @@
 import { Utilisateur } from "../models/relations.js";
 //Importer le module de hachage
-import  bcrypt  from "bcrypt";
+import  bcrypt  from 'bcrypt';
 //import bcrypt from 'bcrypt.js'
 
 //Validation

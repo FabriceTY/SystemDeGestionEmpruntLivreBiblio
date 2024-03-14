@@ -14,11 +14,9 @@ const routeUtilisateur = Router()
 
 routeUtilisateur
     .get("/",verifierToken, utilisateurList)
-    .get("/:id",getUtilisateurById)
-    //.post("/", verifierToken, autoriser(['admin']), utilisateurRules, addUtilisateur)
-    .post("/", verifierToken,addUtilisateur)
-    //.put("/:id", verifierToken, autoriser(['admin', 'prof']), utilisateurRules, updateUtilisateur)
-    .put("/:id", updateUtilisateur)
+    .get("/:id",verifierToken, getUtilisateurById)    
+    .post("/", verifierToken,utilisateurRules, addUtilisateur)    
+    .put("/:id",verifierToken, autoriser(['admin']),utilisateurRules, updateUtilisateur)
     .delete("/:id", verifierToken, autoriser(['admin']), deleteUtilisateurById)
 
 

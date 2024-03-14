@@ -17,7 +17,7 @@ routeLivre
     .get("/:id",getLivreById)
     .post("/", livreRules, addLivre)
     .put("/:id", livreRules, updateLivre)
-    .delete("/:id", deleteLivreById)
+    .delete("/:id",verifierToken, autoriser(['admin']), deleteLivreById)
     // .get("/", verifierToken, livreList)
     // .get("/:id", verifierToken,getLivreById)
     // .post("/", verifierToken, autoriser(['admin']), livreRules, addLivre)

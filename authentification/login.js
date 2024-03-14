@@ -1,7 +1,7 @@
 import { Utilisateur } from "../models/relations.js";
 
 //Importer le module de hachage
-import  bcrypt  from "bcrypt";
+import  bcrypt  from 'bcrypt';
 
 //Importer le module qui genere la clef
 import jwt  from 'jsonwebtoken'

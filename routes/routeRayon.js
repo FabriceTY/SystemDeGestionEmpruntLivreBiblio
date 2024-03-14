@@ -17,7 +17,7 @@ routeRayon
     .get("/:id", getRayonById)
     .post("/", rayonRules, addRayon)
     .put("/:id", rayonRules, updateRayon)
-    .delete("/:id", deleteRayonById)
+    .delete("/:id",verifierToken, autoriser(['admin']), deleteRayonById)
     // .get("/", verifierToken, rayonList)
     // .get("/:id", verifierToken,getRayonById)
     // .post("/", verifierToken, autoriser(['admin']), rayonRules, addRayon)

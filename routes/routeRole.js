@@ -13,11 +13,11 @@ import autoriser from "../authentification/autorisation.js";
 const routeRole = Router()
 
 routeRole
-    .get("/",roleList)
-    .get("/:id",getRoleById)
-    .post("/", roleRules, addRole)
-    .put("/:id", roleRules, updateRole)
-    .delete("/:id",deleteRoleById)
+    .get("/",verifierToken, roleList)
+    .get("/:id",verifierToken, getRoleById)
+    .post("/",verifierToken, autoriser(['admin']), roleRules, addRole)
+    .put("/:id", verifierToken, autoriser(['admin']),roleRules, updateRole)
+    .delete("/:id",verifierToken, autoriser(['admin']),deleteRoleById)
     /*.get("/", verifierToken, roleList)
     .get("/:id", verifierToken,getRoleById)
     .post("/", verifierToken, autoriser(['admin']), roleRules, addRole)

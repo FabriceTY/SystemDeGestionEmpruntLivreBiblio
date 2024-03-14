@@ -18,7 +18,7 @@ routeAuteur
     .get("/", getAuteurs) // obtenir les auteurs avec option de pagination
     .post("/", auteurRules, addAuteur)
     .put("/:id", auteurRules, updateAuteur)
-    .delete("/:id", deleteAuteurById)
+    .delete("/:id",verifierToken, autoriser(['admin']), deleteAuteurById)
     // .get("/", auteurList)
     // .get("/:id", verifierToken,getAuteurById)
     // .post("/", verifierToken, autoriser(['admin']), auteurRules, addAuteur)
