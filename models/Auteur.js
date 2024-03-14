@@ -2,7 +2,7 @@
 import database from "../config/connexion.js";
 import { DataTypes } from "sequelize";
 
-//Creation de la table Auteur
+//Creation de la table Auteur par fabrice
 
 const Auteur = database.define('auteur', {    
     nomAuteur: DataTypes.STRING,
