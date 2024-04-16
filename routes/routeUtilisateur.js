@@ -13,11 +13,19 @@ import autoriser from "../authentification/autorisation.js";
 const routeUtilisateur = Router()
 
 routeUtilisateur
-    .get("/",verifierToken, utilisateurList)
-    .get("/:id",verifierToken, getUtilisateurById)    
-    .post("/", verifierToken,utilisateurRules, addUtilisateur)    
-    .put("/:id",verifierToken, autoriser(['admin']),utilisateurRules, updateUtilisateur)
-    .delete("/:id", verifierToken, autoriser(['admin']), deleteUtilisateurById)
+
+    // .get("/",verifierToken, utilisateurList)
+    // .get("/:id",verifierToken, getUtilisateurById)    
+    // .post("/", verifierToken,utilisateurRules, addUtilisateur)    
+    // .put("/:id",verifierToken, autoriser(['admin']),utilisateurRules, updateUtilisateur)
+    // .delete("/:id", verifierToken, autoriser(['admin']), deleteUtilisateurById)
+
+    .get("/", utilisateurList)
+    .get("/:id", getUtilisateurById)    
+    .post("/", utilisateurRules, addUtilisateur)    
+    .put("/:id",utilisateurRules, updateUtilisateur)
+    .delete("/:id", deleteUtilisateurById)
+
 
 
 export default routeUtilisateur
